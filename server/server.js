@@ -36,12 +36,14 @@ const connectDB = async () => {
   }
 };
 
-// Start server
-const startServer = async () => {
-  await connectDB();
+// Connect for Serverless environment
+connectDB();
+
+// Start server locally
+if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
-};
+}
 
-startServer();
+module.exports = app;
